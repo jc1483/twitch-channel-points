@@ -16,7 +16,7 @@ public class Launch {
 
     String webPort = System.getenv("PORT");
     if (webPort == null || webPort.isEmpty()) {
-      webPort = "443";
+      webPort = "8080";
     }
 
     tomcat.setPort(Integer.valueOf(webPort));
