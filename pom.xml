@@ -81,7 +81,6 @@
             <archive>
               <manifest>
                 <addClasspath>true</addClasspath>
-                <classpathPrefix>repo/</classpathPrefix>
                 <mainClass>main.java.launch.Launch</mainClass>
               </manifest>
             </archive>
