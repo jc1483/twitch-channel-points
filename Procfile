@@ -1,1 +1,1 @@
-web: java -jar target/repo/twitchChannelPointsBot.jar
+web: java -jar target/twitchChannelPointsBot.jar
