@@ -50,42 +50,38 @@
   <build>
     <finalName>twitchChannelPointsBot</finalName>
     <plugins>
-        <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>appassembler-maven-plugin</artifactId>
-            <version>2.0.0</version>
-            <configuration>
-                <assembleDirectory>target</assembleDirectory>
-                <programs>
-                    <program>
-                        <mainClass>main.java.launch.Launch</mainClass>
-                        <name>webapp</name>
-                    </program>
-                </programs>
-            </configuration>
-            <executions>
-                <execution>
-                    <phase>package</phase>
-                    <goals>
-                        <goal>assemble</goal>
-                    </goals>
-                </execution>
-            </executions>
-        </plugin>
-        <plugin>
-          <!-- Build an executable JAR -->
-          <groupId>org.apache.maven.plugins</groupId>
-          <artifactId>maven-jar-plugin</artifactId>
-          <version>3.1.0</version>
+      <plugin>
+          <groupId>org.codehaus.mojo</groupId>
+          <artifactId>appassembler-maven-plugin</artifactId>
+          <version>2.0.0</version>
           <configuration>
-            <archive>
-              <manifest>
-                <addClasspath>true</addClasspath>
-                <classpathPrefix>target/repo/</classpathPrefix>
-                <mainClass>main.java.launch.Launch</mainClass>
-              </manifest>
-            </archive>
+              <assembleDirectory>target</assembleDirectory>
+              <programs>
+                  <program>
+                      <mainClass>main.java.launch.Launch</mainClass>
+                      <name>webapp</name>
+                  </program>
+              </programs>
           </configuration>
+          <executions>
+              <execution>
+                  <phase>package</phase>
+                  <goals>
+                      <goal>assemble</goal>
+                  </goals>
+              </execution>
+          </executions>
+      </plugin>
+      <plugin>
+        <groupId>com.heroku.sdk</groupId>
+        <artifactId>heroku-maven-plugin</artifactId>
+        <version>3.0.4</version>
+        <configuration>
+          <appName>${heroku.appName}</appName>
+          <processTypes>
+            <web>java $JAVA_OPTS -cp target/classes:target/dependency/* main.java.launch.Launch</web>
+          </processTypes>
+        </configuration>
       </plugin>
     </plugins>
   </build>
