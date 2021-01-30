@@ -1,4 +1,4 @@
-package main.java.launch;
+package launch;
 
 import java.io.File;
 
@@ -12,7 +12,7 @@ public class Launch {
 
     public static void main(String[] args) throws Exception {
 
-        String webappDirLocation = "src/main/webapp/";
+        String webappDirLocation = "target/webapp/";
         Tomcat tomcat = new Tomcat();
 
         //The port that we should run on can be set into an environment variable
@@ -24,15 +24,18 @@ public class Launch {
 
         tomcat.setPort(Integer.valueOf(webPort));
 
-        StandardContext ctx = (StandardContext) tomcat.addWebapp("/", new File(webappDirLocation).getAbsolutePath());
-        System.out.println("configuring app with basedir: " + new File("./" + webappDirLocation).getAbsolutePath());
+        StandardContext ctx = (StandardContext) tomcat.addWebapp(
+            "/", new File(webappDirLocation).getAbsolutePath());
+        System.out.println("configuring app with basedir: " + new File(
+            "./" + webappDirLocation).getAbsolutePath());
 
         // Declare an alternative location for your "WEB-INF/classes" dir
         // Servlet 3.0 annotation will work
         File additionWebInfClasses = new File("target/classes");
         WebResourceRoot resources = new StandardRoot(ctx);
-        resources.addPreResources(new DirResourceSet(resources, "/WEB-INF/classes",
-                additionWebInfClasses.getAbsolutePath(), "/"));
+        resources.addPreResources(new DirResourceSet(
+            resources, "/WEB-INF/classes",
+            additionWebInfClasses.getAbsolutePath(), "/"));
         ctx.setResources(resources);
 
         tomcat.start();

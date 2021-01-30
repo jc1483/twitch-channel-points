@@ -51,6 +51,26 @@
     <finalName>twitchChannelPointsBot</finalName>
     <plugins>
       <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-antrun-plugin</artifactId>
+        <executions>
+          <execution>
+            <id>config</id>
+            <phase>process-resources</phase>
+            <configuration>
+              <tasks>
+                <copy todir="target/webapp">
+                  <fileset dir="src/main/webapp" />
+                </copy>
+              </tasks>
+            </configuration>
+            <goals>
+              <goal>run</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
           <groupId>org.codehaus.mojo</groupId>
           <artifactId>appassembler-maven-plugin</artifactId>
           <version>2.0.0</version>
@@ -58,17 +78,17 @@
               <assembleDirectory>target</assembleDirectory>
               <programs>
                   <program>
-                      <mainClass>main.java.launch.Launch</mainClass>
+                      <mainClass>launch.Launch</mainClass>
                       <name>webapp</name>
                   </program>
               </programs>
           </configuration>
           <executions>
               <execution>
-                  <phase>package</phase>
-                  <goals>
-                      <goal>assemble</goal>
-                  </goals>
+                <phase>package</phase>
+                <goals>
+                    <goal>assemble</goal>
+                </goals>
               </execution>
           </executions>
       </plugin>
@@ -77,9 +97,9 @@
         <artifactId>heroku-maven-plugin</artifactId>
         <version>3.0.4</version>
         <configuration>
-          <appName>${heroku.appName}</appName>
+          <appName>twitch-channel-points</appName>
           <processTypes>
-            <web>java $JAVA_OPTS -cp target/classes:target/dependency/* main.java.launch.Launch</web>
+            <web>java $JAVA_OPTS -cp target/classes:target/dependency/* launch.Launch</web>
           </processTypes>
         </configuration>
       </plugin>
