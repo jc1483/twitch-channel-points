@@ -1,1 +1,1 @@
-# twitch-channel-points
+# Heroku Served twitch channel points overlay plugin
